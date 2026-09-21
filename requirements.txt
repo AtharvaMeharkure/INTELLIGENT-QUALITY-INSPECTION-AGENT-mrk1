@@ -1,0 +1,14 @@
+# ── Core app ──────────────────────────────────────────────────────────────────
+gradio>=6.0,<7           # Gradio UI framework
+python-dotenv>=1.0       # Load .env for local dev; no-op on Render (uses env vars)
+
+# ── AI / Search ───────────────────────────────────────────────────────────────
+google-genai>=2.0,<3     # Gemini SDK (generateContent + function calling)
+tavily-python>=0.5       # Tavily web search client
+
+# ── Server ────────────────────────────────────────────────────────────────────
+uvicorn[standard]>=0.30  # ASGI server — serves FastAPI+Gradio on Render
+
+# ── Transitive deps pinned for reproducibility ────────────────────────────────
+httpx>=0.28.1,<1.0       # HTTP client used by google-genai
+pydantic>=2.12.5,<3.0    # Used internally by google-genai

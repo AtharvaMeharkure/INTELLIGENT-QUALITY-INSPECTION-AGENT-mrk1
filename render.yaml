@@ -1,0 +1,22 @@
+services:
+  - type: web
+    name: grocery-management-agent
+    runtime: python
+    plan: free                         # change to "starter" or higher for production
+
+    buildCommand: pip install -r requirements.txt
+    # app.py calls uvicorn.run() internally; Render injects PORT automatically.
+    startCommand: python app.py
+
+    envVars:
+      - key: GEMINI_API_KEY
+        sync: false                    # set this in the Render dashboard (never commit)
+      - key: TAVILY_API_KEY
+        sync: false                    # set this in the Render dashboard (never commit)
+      - key: GEMINI_MODEL
+        value: gemini-3.6-flash        # current stable Flash model
+      # GEMINI_TEMPERATURE — leave unset to use the model default
+
+    healthCheckPath: /health           # Render polls this to confirm the app is up
+
+    autoDeploy: true                   # redeploy on every push to the default branch
